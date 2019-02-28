@@ -1,17 +1,32 @@
 const connection = require("./connection");
 
 const orm = {
-    selectAll() {
-
+    selectAll(tableInput, cb) {
+        let queryString = "SELECT * FROM ??";
+        connection.query(queryString, [tableInput], (err, result) => {
+            if (err) throw err;
+            //console.log(result);
+            cb(result);
+        });
     },
 
-    insertOne() {
-
+    insertOne(burgerName) {
+        let queryString = "INSERT INTO burgers (name, devoured) VALUES (?, 0)";
+        connection.query(queryString, [burgerName], (err, result) => {
+            if (err) throw err;
+            console.log(result);
+            cb(result);
+        });
     },
 
-    updateOne() {
-
+    updateOne(id) {
+        let queryString = "UPDATE burgers SET devoured = 1 WHERE id = ?";
+        connection.query(queryString, [id], (err, result) => {
+            if (err) throw err;
+            console.log(result);
+            cb(result);
+        });
     }
 }
 
-modules.export = orm;
+module.exports = orm;

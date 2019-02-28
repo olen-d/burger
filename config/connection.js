@@ -11,4 +11,4 @@ const connection = mysql.createConnection({
     database: "burgers_db"
 });
 
-modules.export = connection;
+module.exports = connection;
