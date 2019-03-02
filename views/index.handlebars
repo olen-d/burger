@@ -1,17 +1,62 @@
-<h1>Eat Da Burger</h1>
-<h5>Burgers Available for Consumption</h5>
-<ul>
-{{#each burgers}}
-    {{#unless devoured}}
-        <li>{{burger_name}}</li>
-    {{/unless}}
-{{/each}}
-</ul>
-<h5>Burgers Devoured</h5>
-<ul>
-{{#each burgers}}
-    {{#if devoured}}
-        <li>{{burger_name}}</li>
-    {{/if}}
-{{/each}}
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="twelve columns"> 
+            <h1>
+                Eat Da Burger
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="four columns">
+            <h5>
+                Burgers Available
+            </h5>
+        </div>
+        <div class="four columns">
+            &nbsp;
+        </div>
+        <div class="four columns">
+            <h5>
+                Burgers Devoured
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="four columns">
+            <div id="hawtBurgers">
+                {{#each burgers}}
+                    {{#unless devoured}}
+                        <p class="burger" data-burger-id="{{id}}">{{burger_name}}</p>
+                    {{/unless}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="four columns">
+            <div id="devourButtons">
+                {{#each burgers}}
+                    {{#unless devoured}}
+                        <p class="button-wrapper"><button data-burger-id="{{id}}">Devour It!</button></p>
+                    {{/unless}}
+                {{/each}}    
+            </div>
+        </div>
+        <div class="four columns">
+            <div id="burgersDevoured">
+                {{#each burgers}}
+                    {{#if devoured}}
+                        <p class="burger" data-burger-id="{{id}}">{{burger_name}}</p>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="12 columns"></div>
+            <form id="burgerForm" method="post">
+                <label for="burger">Enter a burger you would like to eat</label>
+                <textarea class="u-full-width" id="burgerName"></textarea>
+                <button type="submit" class="button-primary" id="burgerSubmit">Feed Me!</button>
+            </form>
+        </div>
+    </div>
+</div>

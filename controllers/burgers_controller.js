@@ -9,9 +9,21 @@ router.get("/", (req, res) => {
         let hbsObj = {
             burgers : data
         };
-        console.log(hbsObj);
+        //console.log(hbsObj);
         res.render("index", hbsObj);
     });
+});
+
+router.get("/api/burgers/mostRecent", (req, res) => {
+    burger.mostRecent((data) => {
+        res.json(data);
+    });
+});
+
+router.post("/api/burgers", (req, res) => {
+    burger.create(["burger_name", "devoured"], [req.body.name, req.body.status], (result) => {
+        res.json({ id: result.insertId });
+    })
 });
 
 module.exports = router;

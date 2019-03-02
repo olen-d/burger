@@ -7,9 +7,15 @@ const burger = {
       });
     },
 
+    mostRecent (cb) {
+      orm.selectMostRecent("burgers", res => {
+        cb(res);
+      });
+    },
+
     // The variables cols and vals are arrays.
-    create (val, cb) {
-      orm.insertOne(val, (res) => {
+    create (cols, vals, cb) {
+      orm.insertOne("burgers", cols, vals, (res) => {
         cb(res);
       });
     },
