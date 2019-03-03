@@ -20,8 +20,8 @@ const burger = {
       });
     },
 
-    update (id, cb) {
-      orm.updateOne(id, (res) => {
+    update (id, col, val, cb) {
+      orm.updateOne("burgers", id, col, val, (res) => {
         cb(res);
       });
     }

@@ -30,20 +30,19 @@ const orm = {
         });
     },
 
-    selectMostRecent(tableInput, cb) {
+    selectMostRecent(table, cb) {
         let queryString = "SELECT * FROM ?? WHERE id = LAST_INSERT_ID()";
 
-        connection.query(queryString, [tableInput], (err, result) => {
+        connection.query(queryString, [table], (err, result) => {
             if (err) throw err;
             cb(result);
        })
     },
 
-    updateOne(id) {
-        let queryString = "UPDATE burgers SET devoured = 1 WHERE id = ?";
-        connection.query(queryString, [id], (err, result) => {
+    updateOne(table, id, col, val, cb) {
+        let queryString = `UPDATE ${table} SET ${col} = ${val} WHERE id = ${id}`;
+        connection.query(queryString, (err, result) => {
             if (err) throw err;
-            console.log(result);
             cb(result);
         });
     }

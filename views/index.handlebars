@@ -26,7 +26,7 @@
             <div id="hawtBurgers">
                 {{#each burgers}}
                     {{#unless devoured}}
-                        <p class="burger" data-burger-id="{{id}}">{{burger_name}}</p>
+                        <p class="burgerAvail" data-burger-id="{{id}}">{{burger_name}}</p>
                     {{/unless}}
                 {{/each}}
             </div>
@@ -35,7 +35,7 @@
             <div id="devourButtons">
                 {{#each burgers}}
                     {{#unless devoured}}
-                        <p class="button-wrapper"><button data-burger-id="{{id}}">Devour It!</button></p>
+                        <p class="button-wrapper"><button class="devourBtn" data-burger-id="{{id}}">Devour It!</button></p>
                     {{/unless}}
                 {{/each}}    
             </div>
@@ -44,7 +44,7 @@
             <div id="burgersDevoured">
                 {{#each burgers}}
                     {{#if devoured}}
-                        <p class="burger" data-burger-id="{{id}}">{{burger_name}}</p>
+                        <p class="burgerDevoured" data-burger-id="{{id}}">{{burger_name}}</p>
                     {{/if}}
                 {{/each}}
             </div>

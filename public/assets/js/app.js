@@ -5,7 +5,11 @@ const buttonListener = {
     }
 }
 
-// Post
+// Plain vanilla ajax object
+// This was probably a colossal waste of time and I likely should have just
+// used jQuery like a normal person, but it seemed unecessary since this app
+// doesn't need the library for anything else
+
 const ajax = {
     post(url, burgerName, burgerStatus) {
         let xhr = new XMLHttpRequest();
@@ -38,7 +42,7 @@ const ajax = {
                 let b = document.createElement("button");
 
                 p.setAttribute("data-burger-id",jData[0].id);
-                p.setAttribute("class", "burger")
+                p.setAttribute("class", "burgerAvail")
                 p.innerHTML = jData[0].burger_name;
 
                 
@@ -54,6 +58,24 @@ const ajax = {
             }
         }
         xhr.send();
+    },
+
+    put(url, burgerId) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("PUT", url);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                let jData = JSON.parse(xhr.responseText);
+                if (jData.changedRows !== 1) {
+                    console.log("EPIC FAIL: Something went horribly wrong with the update.");
+                }
+            }
+        }
+        xhr.send(JSON.stringify({
+            id: burgerId,
+            devoured: 1
+        }));
     }
 }
 btn = document.getElementById("burgerSubmit")
@@ -61,4 +83,33 @@ btn.addEventListener("click", (e) => {
     e.preventDefault();
     burgerName = document.getElementById("burgerName").value;
     ajax.post("api/burgers", burgerName, 0);
+});
+
+// Add the event listener to the devour button that updates the database
+// and moves everything around on the front end - remember to make this
+// restful and wait for a 200 from the DB before relocating things. But for
+// now, this project needs to be done.
+
+let devourBtn = document.getElementsByClassName("devourBtn");
+Array.from(devourBtn).forEach((elem) => {
+    elem.addEventListener("click", function (e) {
+        e.preventDefault();
+        let burgerId = this.getAttribute("data-burger-id");
+        ajax.put(`api/burgers/devoured/${burgerId}`);
+        // delete the devour button
+        this.remove();
+        // delete the burger from available
+        let burgerP = "";
+        let burgerAvailable = document.getElementsByClassName("burgerAvail");
+        Array.from(burgerAvailable).forEach((elem) => {
+            if(elem.getAttribute("data-burger-id") === burgerId) {
+                burgerP = elem;
+                elem.remove();
+            }
+        });
+        // add the burger to devoured
+        let devouredBurgers = document.getElementById("burgersDevoured");
+        devouredBurgers.appendChild(burgerP);
+        
+    });
 });
