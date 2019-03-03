@@ -1,8 +1,26 @@
 const buttonListener = {
-    add(buttonId, method) {
-        let button = document.getElementById(buttonId);
-        button.addEventListener("click", method);
+    add (elem) {
+        elem.addEventListener("click", function (e) {
+            e.preventDefault();
+            let burgerId = this.getAttribute("data-burger-id");
+            ajax.put(`api/burgers/devoured/${burgerId}`);
+            // delete the devour button
+            this.remove();
+            // delete the burger from available
+            let burgerP = "";
+            let burgerAvailable = document.getElementsByClassName("burgerAvail");
+            Array.from(burgerAvailable).forEach((elem) => {
+                if(elem.getAttribute("data-burger-id") === burgerId) {
+                    burgerP = elem;
+                    elem.remove();
+                }
+            });
+            // add the burger to devoured
+            let devouredBurgers = document.getElementById("burgersDevoured");
+            devouredBurgers.appendChild(burgerP);
+        });
     }
+
 }
 
 // Plain vanilla ajax object
@@ -51,6 +69,7 @@ const ajax = {
                 b.innerHTML = "Devour It!";
 
                 devourButtons.appendChild(b);
+                buttonListener.add(b);
                 hawtBurgers.appendChild(p);
             } else {
                 // Fail. TODO: Add error message.
@@ -92,24 +111,5 @@ btn.addEventListener("click", (e) => {
 
 let devourBtn = document.getElementsByClassName("devourBtn");
 Array.from(devourBtn).forEach((elem) => {
-    elem.addEventListener("click", function (e) {
-        e.preventDefault();
-        let burgerId = this.getAttribute("data-burger-id");
-        ajax.put(`api/burgers/devoured/${burgerId}`);
-        // delete the devour button
-        this.remove();
-        // delete the burger from available
-        let burgerP = "";
-        let burgerAvailable = document.getElementsByClassName("burgerAvail");
-        Array.from(burgerAvailable).forEach((elem) => {
-            if(elem.getAttribute("data-burger-id") === burgerId) {
-                burgerP = elem;
-                elem.remove();
-            }
-        });
-        // add the burger to devoured
-        let devouredBurgers = document.getElementById("burgersDevoured");
-        devouredBurgers.appendChild(burgerP);
-        
+    buttonListener.add(elem);
     });
-});
