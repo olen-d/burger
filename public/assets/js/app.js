@@ -129,7 +129,11 @@ const hacks = {
 // Hack to vertically center the page heading with respect to the responsive image
 
 document.addEventListener("DOMContentLoaded", () => {
-    hacks.vcHeading();
+    let i = document.getElementById("header-img");
+
+    i.onload = () => {
+        hacks.vcHeading();
+    }
   });
 
 // Listern to revertically center the page heading
