@@ -1,0 +1,23 @@
+.burgerAvail, .burgerDevoured p {
+    padding-top:10px;
+    padding-bottom:14px;
+    margin-top:0px;
+    margin-bottom:0px;
+    font-size:15px;
+}
+
+p.button-wrapper {
+    padding-top:0px;
+    padding-bottom:0px;
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+#header-container {
+    display:flex;
+    align-items:center;
+}
+
+.extra-space-top {
+    padding-top:20px;
+}

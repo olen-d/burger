@@ -17,6 +17,7 @@ const buttonListener = {
             });
             // add the burger to devoured
             let devouredBurgers = document.getElementById("burgersDevoured");
+            burgerP.setAttribute("class","burgerDevoured") 
             devouredBurgers.appendChild(burgerP);
         });
     }
@@ -104,12 +105,31 @@ btn.addEventListener("click", (e) => {
     ajax.post("api/burgers", burgerName, 0);
 });
 
-// Add the event listener to the devour button that updates the database
-// and moves everything around on the front end - remember to make this
-// restful and wait for a 200 from the DB before relocating things. But for
-// now, this project needs to be done.
 
+// Add an event listener to all the buttons
 let devourBtn = document.getElementsByClassName("devourBtn");
 Array.from(devourBtn).forEach((elem) => {
     buttonListener.add(elem);
     });
+
+const hacks = {
+    vcHeading() {
+        let i = document.getElementById("header-img");
+        let h = i.clientHeight;
+        let hc = document.getElementById("header-container")
+        
+        if (window.innerWidth < 550) {
+            hc.style.height = 100 + "px";
+        } else {
+        hc.style.height = h + "px";
+        }
+    }
+}
+
+// Hack to vertically center the page heading with respect to the responsive image
+hacks.vcHeading();
+
+// Listern to revertically center the page heading
+window.addEventListener("resize", () => {
+    hacks.vcHeading();
+});

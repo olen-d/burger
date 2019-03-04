@@ -1,12 +1,15 @@
 <div class="container">
     <div class="row">
-        <div class="twelve columns"> 
-            <h1>
+        <div class="three columns">
+            <img src="assets/img/cheeseburger-flat-icon-by-vexels.png" width="100%" height="auto" id="header-img">
+        </div>
+        <div class="nine columns" id="header-container"> 
+            <h1 class="first-heading">
                 Eat Da Burger
             </h1>
         </div>
     </div>
-    <div class="row">
+    {{!-- <div class="row">
         <div class="four columns">
             <h5>
                 Burgers Available
@@ -20,9 +23,12 @@
                 Burgers Devoured
             </h5>
         </div>
-    </div>
+    </div> --}}
     <div class="row">
         <div class="four columns">
+            <h5>
+                Burgers Available
+            </h5>
             <div id="hawtBurgers">
                 {{#each burgers}}
                     {{#unless devoured}}
@@ -32,6 +38,9 @@
             </div>
         </div>
         <div class="four columns">
+            <h5>
+                &nbsp;
+            </h5>
             <div id="devourButtons">
                 {{#each burgers}}
                     {{#unless devoured}}
@@ -41,6 +50,9 @@
             </div>
         </div>
         <div class="four columns">
+            <h5>
+                Burgers Devoured
+            </h5>
             <div id="burgersDevoured">
                 {{#each burgers}}
                     {{#if devoured}}
@@ -50,7 +62,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row extra-space-top">
         <div class="12 columns"></div>
             <form id="burgerForm" method="post">
                 <label for="burger">Enter a burger you would like to eat</label>
